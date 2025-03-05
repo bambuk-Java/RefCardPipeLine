@@ -16,10 +16,11 @@ jobs:
         run: echo "Hello World"
         
       - name: install dependencies
-        run: npm i
+        run: npm install --save react-scripts@latest 
       
       - name: build App
         run: npm run build
 
       - name : debug build
         run: ls -la 
+
