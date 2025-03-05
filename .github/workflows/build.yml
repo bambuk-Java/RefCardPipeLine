@@ -4,17 +4,23 @@ on:
   push:
     branches:
       - main
+
 jobs:
   test-matrix:
-    runs-on: ubuntu-22.4
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         node-version: [14, 15, 16]
         os: [ubuntu-latest, ubuntu-18.04, ubuntu-20.04, ubuntu-22.04]
-      steps:
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with: 
           node-version: ${{ matrix.node-version }}
+
       - name: Run Tests
         run: echo "Test läuft auf ${{ matrix.os }} mit Node.js ${{ matrix.node-version }}"
