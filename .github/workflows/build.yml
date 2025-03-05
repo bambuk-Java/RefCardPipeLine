@@ -5,22 +5,16 @@ on:
     branches:
       - main
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-    
-    steps:
-      - name: Checkout the App
-        uses: actions/checkout@v2
-      
-      - name: hello Wolrd
-        run: echo "Hello World"
-        
-      - name: install dependencies
-        run: npm install --save react-scripts@latest 
-      
-      - name: build App
-        run: npm run build
-
-      - name : debug build
-        run: ls -la 
-
+  test-matrix:
+    runs-on: ubuntu-22.4
+    strategy:
+      matrix:
+        node-version: [14, 15, 16]
+        os: [ubuntu-latest, ubuntu-18.04, ubuntu-20.04, ubuntu-22.04]
+      steps:
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Run Tests
+        run: echo "Test läuft auf ${{ matrix.os }} mit Node.js ${{ matrix.node-version }}"
